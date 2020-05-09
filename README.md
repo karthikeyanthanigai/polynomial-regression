@@ -1,6 +1,6 @@
 # polynomial-regression
 In this repository we will see how polynomial regression works with the same insurance example.In this we use sgd
-***(Stochastic Gradient Descent)*** method.
+***(Stochastic Gradient Descent)*** method. we can also use the ols(Ordinary least squares) method, but both will give same results!!!
 
 
 To run the code follow the below steps:
