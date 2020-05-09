@@ -17,18 +17,18 @@ correlation_matrix = dataset.corr().round(2)
 sns.heatmap(data=correlation_matrix, annot=True)
 
 
-#determine X and y variables(form correlation matrix this values as independent variables)
+#determine X and y variables(form correlation matrix we take age and bmi and we take gender,smokering values as independent variables)
 X = dataset.iloc[:, [0,1,2,4]].values
 y = dataset.iloc[:, [-1]].values
 
-
+#label encoding for character data
 from sklearn.preprocessing import LabelEncoder
 labelencoder = LabelEncoder()
 X[:, 1] = labelencoder.fit_transform(X[:, 1])
 labelencoder1 = LabelEncoder()
 X[:, -1] = labelencoder1.fit_transform(X[:, -1])
 
-
+#converting X to poly degree of 3.
 from sklearn.preprocessing import PolynomialFeatures
 poly_reg = PolynomialFeatures(degree=3)
 X = poly_reg.fit_transform(X)
@@ -51,36 +51,8 @@ regressor.fit(X_train, y_train)
 y_pred = regressor.predict(X_test)
 
 
-
-
 #r2 result
 from sklearn.metrics import r2_score, mean_squared_error
 r_squared = r2_score(y_test, y_pred)
 print("Coefficient of Determination = ",r_squared)
 
-
-#rmse and r2 results for training set
-from sklearn.metrics import r2_score , mean_squared_error
-
-rmse_train = (np.sqrt(mean_squared_error(y_train, regressor.predict(X_train) )))
-r_squared_train = r2_score(y_train , regressor.predict(X_train))
-print("R squared for the training set")
-print("---------------------------------")
-print(r_squared_train)
-print("---------------------------------")
-print("RMSEfor the training set")
-print("---------------------------------")
-print(rmse_train)
-
-#rmse and r2 results for test set
-rmse_test = (np.sqrt(mean_squared_error(y_test, regressor.predict(X_test) )))
-r_squared_test = r2_score(y_test , regressor.predict(X_test))
-print("R squared for the testing set")
-print("---------------------------------")
-print(r_squared_test)
-print("---------------------------------")
-print("RMSEfor the testing set")
-print("---------------------------------")
-print(rmse_test)
-
-#The RMSE and the R squared for the test and the training set is almost the same , which shows that our model has not done any overfitting. The model can be well improved by going to more Algorithms like Polynomial, SVMs , foresting and Boosting Algorithms.
